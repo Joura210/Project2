@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Notanother1",
-    "database": "exampledb",
+    "password": "surfboard",
+    "database": "taskdb",
     "host": "localhost",
     "dialect": "mysql"
   },
