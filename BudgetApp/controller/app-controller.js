@@ -25,4 +25,17 @@ router.get("/userlogin", (req,res) => {
   })
 })
 
+router.post("/api/signup", (req, res) => {
+  db.Parent.create({
+    name: req.body.name,
+    userName: req.body.username,
+    password: req.body.password,
+    pin: req.body.pin
+  }).then(result => {
+    // console.log(result);
+    res.json({newUser: req.body});
+  })
+  // res.json({newUser: req.body})
+})
+
 module.exports = router;
