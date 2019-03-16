@@ -6,7 +6,17 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     parentID: {
-      type: DataTypes.INTERGER,
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+
+    rewardName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
+    rewardValue: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   });
