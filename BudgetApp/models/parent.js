@@ -1,3 +1,5 @@
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function(sequelize, DataTypes) {
   var Parent = sequelize.define("Parent", {
     name: {
@@ -20,5 +22,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
+
+  Parent.prototype.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+  };
+
+  Parent.hook("beforeCreate", function(parent) {
+    parent.password = bcrypt.hashSync(parent.password, bcrypt.genSaltSync(10), null);
+  });
+  
   return Parent;
 };
