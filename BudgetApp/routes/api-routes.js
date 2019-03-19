@@ -1,5 +1,6 @@
 var db = require("../models");
 var passport = require("../config/passport");
+var seedFile = require("../seeds")
 
 module.exports = function (app) {
     // Using the passport.authenticate middleware with our local strategy.
@@ -31,6 +32,35 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/seedme", (req,res) => {
+        seedFile();
+        res.json({seeded: true});
+    })
+
+    app.post("/api/kid", (req, res) => {
+        db.Kid.create({
+            name: req.body.name,
+            rewardName: req.body.rewardName || null,
+            rewardValue: req.body.rewardValue || null,
+            ParentId: req.body.parentId
+        }).then(function (result) {
+            res.json(result)
+        })
+    });
+
+    app.post("/api/task", (req, res) => {
+        db.Task.create({
+            name: req.body.name,
+            value: req.body.value,
+            iterations: req.body.iterations,
+            progress: req.body.progress || null,
+            complete: req.body.compete || null,
+            KidId: req.body.KidId
+        }).then(function (result) {
+            res.json(result)
+        })
+    })
+
     // Route for logging user out
     app.get("/logout", function (req, res) {
         req.logout();
@@ -40,15 +70,26 @@ module.exports = function (app) {
     app.get("/api/user_data", function (req, res) {
         if (!req.user) {
             // The user is not logged in, send back an empty object
-            res.json({});
+            res.json({ login: false });
         }
         else {
-            // Otherwise send back the user's email and id
-            // Sending back a password, even a hashed password, isn't a good idea
-            res.json({
-                userName: req.parent.userName,
-                id: req.parent.id
-            });
+            db.Kid.findAll({
+                where: {
+                    ParentId: req.user.id
+                }
+            }).then(kids => {
+                var kidData = kids;
+                res.json({
+                    // userName: req.parent.userName,
+                    // id: req.parent.id
+                    login: true,
+                    name: req.user.name,
+                    userName: req.user.userName,
+                    pin: req.user.pin,
+                    kidData: kidData
+                });
+            })
+
         }
     });
 };
