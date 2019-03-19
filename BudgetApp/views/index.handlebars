@@ -1,4 +1,28 @@
 <div class="container">
-    <h1>Welcome to the page, {{user.name}}</h1>
+    <h1>Welcome to the page, <span id="userName"></span></h1>
     <a href="/logout">logout</a>
+
+    <div class="kidArea">
+        
+    </div>
 </div>
+
+
+<script>
+    var pin = "";
+    $(function() {
+        $.ajax("/api/user_data", {
+            type: "GET"
+        }).then(data => {
+            console.log(data);
+            console.log(data.name)
+            $("#userName").text(data.name);
+            pin = data.pin;
+            data.kidData.forEach(kid => {
+                let newKid = $("<h3>").text(kid.name).attr("data-id", kid.id);
+                $(".kidArea").append(newKid)
+                
+            })
+        })
+    })
+</script>

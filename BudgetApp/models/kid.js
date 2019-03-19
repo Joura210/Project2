@@ -5,20 +5,27 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
 
-    parentID: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-
     rewardName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     rewardValue: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     }
   });
+
+  Kid.associate = function(models) {
+    Kid.belongsTo(models.Parent, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+
+    Kid.hasMany(models.Task, {
+      onDelete: "cascade"
+    })
+  };
   return Kid;
 };

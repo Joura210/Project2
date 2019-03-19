@@ -1,6 +1,6 @@
 var bcrypt = require("bcrypt-nodejs");
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Parent = sequelize.define("Parent", {
     name: {
       type: DataTypes.STRING,
@@ -23,13 +23,19 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  Parent.prototype.validPassword = function(password) {
+  Parent.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
 
-  Parent.hook("beforeCreate", function(parent) {
+  Parent.hook("beforeCreate", function (parent) {
     parent.password = bcrypt.hashSync(parent.password, bcrypt.genSaltSync(10), null);
   });
-  
+
+  Parent.associate = function (models) {
+    Parent.hasMany(models.Kid, {
+      onDelete: "cascade"
+    });
+  }
+
   return Parent;
 };
