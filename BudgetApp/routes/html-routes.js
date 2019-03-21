@@ -7,7 +7,7 @@ module.exports = function (app) {
         if (req.parent) {
             res.render("index");
         };
-        res.render("login");
+        res.render("landing");
     })
 
     app.get("/signup", (req, res) => {
