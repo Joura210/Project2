@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     complete: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
-      defaultValue: false,
+      defaultValue: false
     }
   });
 
@@ -34,6 +34,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
-  }
+  };
   return Task;
 };
