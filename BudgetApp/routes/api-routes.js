@@ -32,9 +32,9 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/seedme", (req,res) => {
+    app.get("/seedme", (req, res) => {
         seedFile();
-        res.json({seeded: true});
+        res.json({ seeded: true });
     })
 
     app.post("/api/kid", (req, res) => {
@@ -92,4 +92,155 @@ module.exports = function (app) {
 
         }
     });
+
+    app.get("/test", (req, res) => {
+        if (req.user) {
+            res.json(req.user);
+        } else {
+            res.json({ user: false });
+        }
+    })
+
+    // This is for setting the progress
+    // Could be used with a button click to increase progress for task 
+    app.put("/api/task/progress", (req, res) => {
+        if (req.user) {
+            db.Task.update({
+                progress: req.body.progress
+            }, {
+                    where: {
+                        id: req.body.id
+                    }
+                }
+            ).then(function (result) {
+                res.json(result)
+            })
+        } else {
+            res.json({ user: false });
+        }
+    })
+
+    // Used to update if task is complete or not
+    // input either true or false
+    app.put("/api/task/complete", (req, res) => {
+        if (req.user) {
+            db.Task.update({
+                complete: req.body.complete
+            }, {
+                    where: {
+                        id: req.body.id
+                    }
+                }
+            ).then(function (result) {
+                res.json(result)
+            })
+        } else {
+            res.json({ user: false });
+        }
+    })
+
+    // This is going to update everything in the task
+    // Use this if you have form with all of the information there
+    // Have the input values be populated with information from the task
+    app.put("/api/task", function (req, res) {
+        if (req.user) {
+            db.Task.update({
+                name: req.body.name,
+                value: req.body.value,
+                iterations: req.body.iterations,
+                progress: req.body.progress || null,
+                complete: req.body.complete || null
+            }, {
+                    where: {
+                        id: req.body.id
+                    }
+                }).then(function (result) {
+                    res.json(result);
+                })
+        } else {
+            res.json({ user: false })
+        }
+    });
+
+    // Update the information about the reward for the kid
+    // In this instance, not going to allow for null values
+    app.put("/api/kid", function (req, res) {
+        if (req.user) {
+            db.Kid.update({
+                rewardName: req.body.rewardName,
+                rewardValue: req.body.rewardValue
+            }, {
+                    where: {
+                        id: req.body.id
+                    }
+                }).then(function (result) {
+                    res.json(result);
+                })
+        } else {
+            res.json({ user: false })
+        }
+    })
+
+    // Delete kid from kids table
+    // Tasks associated with this kid will also be deleted from tasks table
+    // Gated to only allow the parent who has foreign key id can delete
+    app.delete("/api/kid/:id", function (req, res) {
+        if (req.user) {
+            var idParam = req.params.id;
+            db.Kid.findOne({
+                where: {
+                    id: idParam
+                }
+            }).then(function (result) {
+                if (result.ParentId === req.user.id) {
+                    db.Kid.destroy({
+                        where: {
+                            id: idParam
+                        }
+                    }).then(function(deleted) {
+                        res.json(deleted);
+                    })
+                }
+            })
+        } else {
+            res.json({user:false})
+        }
+    });
+
+    // This route will delete task that has the id that is in params
+    // only if the task's kid's parent id is the same as the user id
+    app.delete("/api/task/:id", function(req,res) {
+        if (req.user) {
+            var taskId = req.params.id;
+            db.Task.findOne({
+                where: {
+                    id: taskId
+                }
+            }).then(function(taskResult){
+                db.Kid.findOne({
+                    where: {
+                        id: taskResult.KidId
+                    }
+                }).then(function(kidResult){
+                    db.Parent.findOne({
+                        where: {
+                            id: kidResult.ParentId
+                        }
+                    }).then(function(parentResult){
+                        if (kidResult.ParentId === parentResult.id) {
+                            db.Task.destroy({
+                                where: {
+                                    id: taskId
+                                }
+                            }).then(function(deleted){
+                                res.json(deleted)
+                            })
+                        }
+                    })
+                })
+            })
+        } else {
+            res.json({user:false})
+        }
+    })
 };

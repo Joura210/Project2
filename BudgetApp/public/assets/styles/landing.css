@@ -1,0 +1,93 @@
+*{
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, li, a{
+    margin:0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+header img{
+    height: 100px;
+    width: auto;
+}
+
+header{
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 3px black solid;
+    background-color: skyblue;
+}
+
+header h1{
+    font-family: 'Permanent Marker', cursive;
+
+}
+
+nav{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    font-family: Verdana, "Geneva", Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.atag{
+    padding: 40px 15px 0 15px;
+    font-size: 18px;
+    height: 100%;
+}
+
+.activeTag{
+    background-color: lightblue;
+}
+
+.formArea{
+    display: none;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    width: 30%;
+    min-width: 300px;
+}
+
+.form{
+    display: none;
+    min-height: 250px;
+    padding: 10px 20px;
+    border: 3px black solid;
+    border-top: none;
+    border-right: none;
+}
+
+.form input[type=text] {
+    width: 80%;
+}
+
+.show{
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .formArea{
+        left: calc(50vw - 150px)
+    }
+
+    nav{
+        width: 50%;
+    }
+
+    header h1{
+        display: none;
+    }
+}
