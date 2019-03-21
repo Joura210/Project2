@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
 
     Kid.hasMany(models.Task, {
       onDelete: "cascade"
-    })
+    });
   };
   return Kid;
 };
