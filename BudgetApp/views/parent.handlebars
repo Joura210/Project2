@@ -1,3 +1,17 @@
+<link rel="stylesheet" href="../assets/styles/myIndex.css">
+
+<header>
+  <div class="nav1">
+    <img src="../assets/images/logo_transparent.png" alt="">
+    <h1>Blueprinting the Future</h1>
+  </div>
+  <nav>
+
+    <div class="atag"><a href="/logout">Logout</a></div>
+  </nav>
+
+</header>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -70,9 +84,10 @@ $(function() {
     result.kidData.forEach(kid => {
         let newKid = $("<div>").attr("data-id", kid.id);
         var childName = $("<h3>").text(kid.name);
-        var newTaskButton = $("<button>").attr("class", "newTask").attr("data-toggle", "modal").attr("data-target" , "#addKidTaskModal").attr("data-id", kid.id).attr("data-name", kid.name).text("Add a Task");
-        var editTaskButton = $("<button>").attr("class", "editTask").attr("data-toggle" , "modal").attr("data-target", "#editKidTaskModal").text("Edit a Task");
-        newKid.append(childName, newTaskButton, editTaskButton);
+        var newTaskButton = $("<button>").attr("class", "newTask btn btn-success").attr("data-toggle", "modal").attr("data-target" , "#addKidTaskModal").attr("data-id", kid.id).attr("data-name", kid.name).text("Add a Task");
+        var editTaskButton = $("<button>").attr("class", "editTask btn btn-warning").attr("data-toggle" , "modal").attr("data-target", "#editKidTaskModal").text("Edit a Task");
+        var deleteKid = $("<button>").attr("class" , "deleteKid").attr("class", "btn btn-danger").attr("data-id" , kid.id).text("Delete Child");
+        newKid.append(childName, newTaskButton, editTaskButton, deleteKid);
             
         $(".kidArea").append(newKid)
         
@@ -100,9 +115,21 @@ $(function() {
 });
 $(document).on("click" , ".newTask" , function(){
     $("#addKidTaskModal .modal-body .addKidTaskName").val($(this).attr("data-name"))
-})
+});
 $(document).on("click", ".editTask" , function(){
     $("#editKidTaskModal , .modal-body .editTask")
+    console.log("clicked");
+});
+
+$("body").on("click" ,".deleteKid", function(){
+    console.log("clicked");
+    var delId = $(this).attr("data-id");
+    $.ajax("/api/kid/"+delId, {
+        type: "DELETE"
+    }).then(function(result){
+        console.log(result);
+        location.reload();
+    })
 })
 </script>
 {{!-- 
