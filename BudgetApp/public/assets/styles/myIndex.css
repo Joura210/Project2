@@ -1,0 +1,23 @@
+.aBtn{
+  font-size: 20px;
+  padding: 15px 20px;
+  border: 1px #31C3EE solid;
+  text-decoration: none;
+  background-color: rgb(00,00,66);
+  color: whitesmoke;
+  border-radius: 15%;
+  box-shadow: 4px 4px 5px black;
+}
+
+.aBtn:hover{
+  text-decoration: none;
+  background-color: black;
+  box-shadow: none;
+  color: skyblue;
+  transition: all, .5s;
+}
+
+.kidArea{
+  min-height: 200px;
+  padding-top: 20px;
+}

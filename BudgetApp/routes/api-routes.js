@@ -55,8 +55,8 @@ module.exports = function(app) {
       name: req.body.name,
       value: req.body.value,
       iterations: req.body.iterations,
-      progress: req.body.progress || null,
-      complete: req.body.compete || null,
+      // progress: req.body.progress || null,
+      // complete: req.body.compete || null,
       KidId: req.body.KidId
     }).then(function(result) {
       res.json(result);

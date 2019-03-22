@@ -1,6 +1,7 @@
 // var path = require("path");
 
 var isAuthenticated = require("../config/middleware/isAuthenticaed");
+var db = require("../models");
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
@@ -19,5 +20,22 @@ module.exports = function(app) {
 
   app.get("/members", isAuthenticated, function(req, res) {
     res.render("index");
+  });
+
+  app.get("/kid/:id", isAuthenticated, function(req, res) {
+    if (req.user) {
+      var kidId = req.params.id;
+      db.Task.findAll({
+        where: {
+          KidId: kidId
+        }
+      }).then(function(data) {
+        var sendObj = {
+          task: data
+        };
+        // console.log(sendObj);
+        res.render("kid", sendObj);
+      });
+    }
   });
 };
