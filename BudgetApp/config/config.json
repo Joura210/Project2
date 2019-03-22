@@ -1,8 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "Notanother1",
+    "password": "root",
     "database": "taskdb",
+    "port": 3306,
     "host": "localhost",
     "dialect": "mysql"
   },
