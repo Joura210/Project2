@@ -56,6 +56,10 @@ nav{
     height: 100%;
 }
 
+.atag a{
+    color: black;
+}
+
 .activeTag{
     background-color: lightblue;
 }
@@ -76,6 +80,7 @@ nav{
     border: 3px black solid;
     border-top: none;
     border-right: none;
+    background-color: white;
 }
 
 .form input[type=text] {

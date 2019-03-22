@@ -1,31 +1,42 @@
+<link rel="stylesheet" href="../assets/styles/myIndex.css">
+
+<header>
+  <div class="nav1">
+    <img src="../assets/images/logo_transparent.png" alt="">
+    <h1>Blueprinting the Future</h1>
+  </div>
+  <nav>
+
+    <div class="atag"><a href="/logout">Logout</a></div>
+  </nav>
+
+</header>
+
 <div class="container">
-    <h1>Welcome to the page, <span id="userName"></span></h1>
-    <a href="/logout">logout</a>
+  <h1>Welcome to the page, <span id="userName"></span></h1>
 
-    
+  <div class="kidArea">
 
-    <div class="kidArea">
-        
-    </div>
-{{!-- End Container --}}
+  </div>
+  {{!-- End Container --}}
 </div>
 
 
 <script>
-    var pin = "";
-    $(function() {
-        $.ajax("/api/user_data", {
-            type: "GET"
-        }).then(data => {
-            console.log(data);
-            console.log(data.name)
-            $("#userName").text(data.name);
-            pin = data.pin;
-            data.kidData.forEach(kid => {
-                let newKid = $("<h3>").text(kid.name).attr("data-id", kid.id);
-                $(".kidArea").append(newKid)
-                
-            })
-        })
+  var pin = "";
+  $(function() {
+    $.ajax("/api/user_data", {
+      type: "GET"
+    }).then(data => {
+      console.log(data);
+      console.log(data.name)
+      $("#userName").text(data.name);
+      pin = data.pin;
+      data.kidData.forEach(kid => {
+        let newKid = $("<a>").attr("class", "aBtn").text(kid.name).attr("data-id", kid.id).attr("href", "/kid/"+kid.id);
+        $(".kidArea").append(newKid)
+
+      })
     })
+  })
 </script>
