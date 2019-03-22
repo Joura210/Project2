@@ -84,6 +84,7 @@ module.exports = function(app) {
           // userName: req.parent.userName,
           // id: req.parent.id
           login: true,
+          id: req.user.id,
           name: req.user.name,
           userName: req.user.userName,
           pin: req.user.pin,

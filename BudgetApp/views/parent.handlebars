@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" id="kidName">
+            <button type="button" class="newKid btn btn-success">Add a Child</button>
+            
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-12 kidArea">
+
+    </div>
+</div>
+
+    {{!-- End Container --}}
+</div>
+<div class="modal" id="addKidTaskModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Child Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="addKidTaskName" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="editKidTaskModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Child Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="editTask" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var userName = "";
+var kidData = "";
+var userId = "";
+
+$(function() {
+  $.ajax("/api/user_data", {
+    type: "GET"
+  }).then(function(result) {
+    userId = result.id;
+    kidData = result.kidData;
+    console.log(kidData);
+    console.log(userId);
+    result.kidData.forEach(kid => {
+        let newKid = $("<div>").attr("data-id", kid.id);
+        var childName = $("<h3>").text(kid.name);
+        var newTaskButton = $("<button>").attr("class", "newTask").attr("data-toggle", "modal").attr("data-target" , "#addKidTaskModal").attr("data-id", kid.id).attr("data-name", kid.name).text("Add a Task");
+        var editTaskButton = $("<button>").attr("class", "editTask").attr("data-toggle" , "modal").attr("data-target", "#editKidTaskModal").text("Edit a Task");
+        newKid.append(childName, newTaskButton, editTaskButton);
+            
+        $(".kidArea").append(newKid)
+        
+    });
+  });
+
+  $(".newKid").on("click", function() {
+    console.log("clicked");
+    var name = $("#kidName")
+      .val()
+      .trim();
+    let sendKid = {
+      name: name,
+      parentId: userId
+    };
+    $.ajax("/api/kid", {
+      type: "POST",
+      data: sendKid
+    }).then(result => {
+      console.log(result);
+      // location.assign(result.page);
+      location.reload();
+    });
+  });
+});
+$(document).on("click" , ".newTask" , function(){
+    $("#addKidTaskModal .modal-body .addKidTaskName").val($(this).attr("data-name"))
+})
+$(document).on("click", ".editTask" , function(){
+    $("#editKidTaskModal , .modal-body .editTask")
+})
+</script>
+{{!-- 
+Edit Reward/Reward Value modal
+Edit task: name, value, iterations, complete modal
+Task Buttons:
+Edit Progress by 1
+Edit completion
+Delete task --}}

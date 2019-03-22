@@ -38,4 +38,7 @@ module.exports = function(app) {
       });
     }
   });
+  app.get("/parent", isAuthenticated, function(req, res) {
+    res.render("parent");
+  });
 };
