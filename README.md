@@ -37,6 +37,7 @@ App is available live through GitHub pages and Heroku
 ## <a name="structure-of-the-project"></a> Structure of the project
 <ul>
 <li>BudgetApp</li>
+    <li>node_modules</li>  
 <li>config</li>
     <ol>middleware</ol>
         <ol>isAuthenticaed.js</ol>
@@ -48,29 +49,35 @@ App is available live through GitHub pages and Heroku
     <ol>kid.js</ol>
     <ol>parent.js</ol>
     <ol>schema.sql</ol>
-    <ol>task.js</ol>
-<li>node_modules</li>    
+    <ol>task.js</ol>   
 <li>public</li>
     <ol>assets</ol>
     <ul> images</ul>
     <ul>js</ul>
         <ol>index.js</ol>
+        <ol>kid.js</ol>
         <ol>landing.js</ol>
         <ol>login.js</ol>
+        <ol>parent.js</ol>
     <ul> styles</ul>
+        <ol>kid.css</ol>
         <ol>landing.css</ol>
         <ol>login.css</ol>
+        <ol>myIndex.css</ol>
+        <ol>parent.css</ol>
         <ol>styles.css</ol>
 <li>routes</li>
     <ul>api-routes.js</ul>
     <ul>html-routes.js</ul>
 <li>views</li>
     <ul>layouts</ul>
-    <ul>main.handlebars</ul>
     <ul>404.handlebars</ul>
     <ul>index.handlebars</ul>
+    <ul>kid.handlebars</ul>
     <ul>landing.handlebars</ul> 
     <ul>login.handlebars</ul>
+    <ul>mikeKid.handlebars</ul>
+    <ul>parent.handlebars</ul>
     <ul>signup.handlebars</ul>  
 <li>seeds.js</li>
 <li>server.js</li>
@@ -84,8 +91,24 @@ We created our own unique logo using Hatchful.shopify. Hatchful.shopify is a fre
 
 ## <a name="screenshots"></a> Screenshots
 Images of Building Blocks site
+Landing page
+![Image of site](public/assets/images/Readme1.png)
+![Image of site](public/assets/images/Readme12.png)
+![Image of site](public/assets/images/Readme13.png)
+Sign in and Sign up
+![Image of site](public/assets/images/Readme2.png)
+![Image of site](public/assets/images/Readme3.png)
+Parent page
+![Image of site](public/assets/images/Readme4.png)
+![Image of site](public/assets/images/Readme5.png)
+Child page 
+![Image of site](public/assets/images/Readme6.png)
+![Image of site](public/assets/images/Readme7.png)
+![Image of site](public/assets/images/Readme8.png)
+![Image of site](public/assets/images/Readme9.png)
+Child progess 
+![Image of site](public/assets/images/Readme11.png)
 
-![Image of logo](public/assets/images/load image later.png)
 
 ## <a name="technologies-used"></a> Technologies used to create the app
 * HTML5
