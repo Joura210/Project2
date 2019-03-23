@@ -1,22 +1,23 @@
 .kidBtn{
   font-size: 20px;
   padding: 15px 20px;
-  border: 1px #31C3EE solid;
+  border: 3px #31C3EE solid;
   text-decoration: none;
   background-color: rgb(00,00,66);
   color: whitesmoke;
-  border-radius: 15%;
+  border-radius: 15px;
   box-shadow: 4px 4px 5px black;
   width: fit-content;
   margin: 1em auto 0 auto;
   text-transform: capitalize;
+  transition: all, .5s;
 }
 
 .kidBtn:hover{
   text-decoration: none;
-  background-color: black;
+  background-color: whitesmoke;
   box-shadow: none;
-  color: skyblue;
+  color: #000066;
   transition: all, .5s;
 }
 
@@ -43,12 +44,23 @@
 }
 
 .subTitle{
-  text-decoration: underline;
+  font-family: 'Raleway', sans-serif;
+}
+
+.welcome{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+}
+
+.bor{
+  border-top: 3px whitesmoke solid;
+  padding-top: 1em;
 }
 
 .display{
   height: 33.6px;
   background-color: white;
+  color: #000066;
   width: 156px;
   margin: 1em auto;
   border: .5px black solid;
@@ -64,11 +76,26 @@
 
 .main{
   margin-top: 2em;
-  background-color: whitesmoke;
+  background-color: #007FBA;
+  color: whitesmoke;
   padding: 10px;
-  border: 3px black solid;
+  border: 3px #000066 solid;
 }
 
 .sendPin{
+  margin-top: 1em;
+  background-color: whitesmoke;
+  color: #000066;
+  transition: all, .5s;
+}
+
+.sendPin:hover{
+  background-color: whitesmoke;
+  color: #000066;
+  transform: scale(0.9);
+  transition: all, .5s;
+}
+
+.pushDown{
   margin-top: 1em;
 }
