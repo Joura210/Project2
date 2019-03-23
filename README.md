@@ -1,4 +1,4 @@
-# ![Image of logo](BudgetApp/public/assets/images/favicon.png) Building Blocks
+# ![Image of logo](public/assets/images/favicon.png) Building Blocks
 
 Schools teach our children geography, math and science. Why are we not teaching them about finance?
 
@@ -79,13 +79,13 @@ App is available live through GitHub pages and Heroku
 ## <a name="logo"></a> Logo
 We created our own unique logo using Hatchful.shopify. Hatchful.shopify is a free logo making site, that provides many different style types to make it your own.
 
-![Image of logo](BudgetApp/public/assets/images/pinterest_profile_image.png)
+![Image of logo](public/assets/images/pinterest_profile_image.png)
 
 
 ## <a name="screenshots"></a> Screenshots
 Images of Building Blocks site
 
-![Image of logo](BudgetApp/public/assets/images/load image later.png)
+![Image of logo](public/assets/images/load image later.png)
 
 ## <a name="technologies-used"></a> Technologies used to create the app
 * HTML5
