@@ -71,6 +71,7 @@
   display: flex;
   align-items: flex-end;
   text-transform: capitalize;
+  text-align: center;
 }
 
 .third{

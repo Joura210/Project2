@@ -16,6 +16,11 @@
   border-radius: 15px;
 }
 
+.finished{
+  background: linear-gradient(90deg, rgb(1, 190, 1), rgb(3, 223, 3));
+  box-shadow: 0 0 20px rgb(2, 252, 2);
+}
+
 .flexStats{
   width: 80%;
   display: flex;
