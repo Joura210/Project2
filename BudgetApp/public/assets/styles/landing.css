@@ -71,6 +71,7 @@ nav{
     right: 0;
     width: 30%;
     min-width: 300px;
+    z-index: 3;
 }
 
 .form{

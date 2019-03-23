@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="../assets/styles/myIndex.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="../assets/styles/parent.css">
+<script src="../assets/js/parent.js"></script>
 
 <header>
   <div class="nav1">
@@ -7,160 +10,48 @@
   </div>
   <nav>
 
+    <div class="atag"><a href="/members">Home</a></div>
     <div class="atag"><a href="/logout">Logout</a></div>
   </nav>
 
 </header>
 
+<div class="inputAnyForm">
+  <div class="actualForm">
+    <div class="closeBtn"><i class="fas fa-times-circle"></i></div>
+    <div class="myForm editRewards">
+      <h3>Change Reward:</h3>
+      <label for="rewardName">Reward Name</label><br>
+      <input type="text" name="rewardName" id="rewardNameAdd"><br>
+      <label for="rewardValue">Reward Value</label><br>
+      <input type="text" name="rewardValue" id="rewardValueAdd"><br>
+      <button class="btn btn-info formBtn editRewBtn">Send</button>
+    </div>
+    <div class="myForm addTask">
+      <h3>Add Task:</h3>
+      <label for="taskName">Task Name</label><br>
+      <input type="text" name="taskName" id="taskNameAdd"><br>
+      <label for="taskValue">Task Value</label><br>
+      <input type="text" name="taskValue" id="taskValueAdd"><br>
+      <label for="interations">Iterations</label><br>
+      <input type="text" name="iterations" id="iterationsAdd"><br>
+      <button class="btn btn-info formBtn addTaskBtn">Send</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <input type="text" id="kidName">
-            <button type="button" class="newKid btn btn-success">Add a Child</button>
-            
-        </div>
-    </div>
-<div class="row">
-    <div class="col-md-12 kidArea">
-
-    </div>
-</div>
-
-    {{!-- End Container --}}
-</div>
-<div class="modal" id="addKidTaskModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Child Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="taskName" value=""/>
-        <br>
-        <input type="text" id="reward" value=""/>
-        <br>
-        <input type="text" id="iterations" value=""/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary sendTask">Save Task</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <div class="row">
+    <div class="col-12">
+      <div class="addKidArea">
+        <button class="btn btn-primary addKid">Add Kid</button>
+        <input type="text" name="kid" id="kidNameAdd">
       </div>
     </div>
   </div>
-</div>
-
-<div class="modal" id="editKidTaskModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Child Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input type="text" class="editTask" value=""/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="kidArea"></div>
     </div>
   </div>
 </div>
-
-<script>
-var userName = "";
-var kidData = "";
-var userId = "";
-
-$(function() {
-  $.ajax("/api/user_data", {
-    type: "GET"
-  }).then(function(result) {
-    userId = result.id;
-    kidData = result.kidData;
-    console.log(kidData);
-    console.log(userId);
-    result.kidData.forEach(kid => {
-        let newKid = $("<div>").attr("data-id", kid.id);
-        var childName = $("<h3>").text(kid.name);
-        var newTaskButton = $("<button>").attr("class", "newTask btn btn-success").attr("data-toggle", "modal").attr("data-target" , "#addKidTaskModal").attr("data-id", kid.id).attr("data-name", kid.name).text("Add a Task");
-        var editTaskButton = $("<button>").attr("class", "editTask btn btn-warning").attr("data-id" , kid.id).attr("data-toggle" , "modal").attr("data-target", "#editKidTaskModal").text("Edit a Task");
-        var deleteKid = $("<button>").attr("class", "btn deleteKid btn-danger").attr("data-id" , kid.id).text("Delete Child");
-        newKid.append(childName, newTaskButton, editTaskButton, deleteKid);
-            
-        $(".kidArea").append(newKid)
-        
-    });
-  });
-
-  $(".newKid").on("click", function() {
-    console.log("clicked");
-    var name = $("#kidName")
-      .val()
-      .trim();
-    let sendKid = {
-      name: name,
-      parentId: userId
-    };
-    $.ajax("/api/kid", {
-      type: "POST",
-      data: sendKid
-    }).then(result => {
-      console.log(result);
-      // location.assign(result.page);
-      location.reload();
-    });
-  });
-});
-$(document).on("click" , ".newTask" , function(){
-    $("#addKidTaskModal .modal-body .addKidTaskName").val($(this).attr("data-name"))
-});
-$(document).on("click", ".editTask" , function(){
-    $("#editKidTaskModal , .modal-body .editTask")
-    console.log("clicked");
-});
-
-$("body").on("click" ,".deleteKid", function(){
-    console.log("clicked");
-    var delId = $(this).attr("data-id");
-    $.ajax("/api/kid/" + delId, {
-        type: "DELETE"
-    }).then(function(result){
-        console.log(result);
-        location.reload();
-    })
-});
-
-$("body").on("click", ".sendTask", function(){
-    console.log("clicked");
-    let sendTask = {
-      name: $("#taskName").val().trim(),
-      value: $("#reward").val().trim(),
-      iterations: $("#iterations").val().trim() ,
-      // progress: req.body.progress || null,
-      // complete: req.body.compete || null,
-      KidId: $(this).attr("data-id")
-    };
-    $.ajax("/api/task", {
-        type: "POST",
-        data: sendTask
-    }).then(result => {
-      console.log(result);
-      // location.assign(result.page);
-      location.reload();
-    });
-});
-
-</script>
-{{!-- 
-Edit Reward/Reward Value modal
-Edit task: name, value, iterations, complete modal
-Task Buttons:
-Edit Progress by 1
-Edit completion
-Delete task --}}

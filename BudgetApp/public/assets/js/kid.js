@@ -16,4 +16,11 @@ $(function() {
       }
     }, 8);
   });
+
+  $.ajax("/api/kid/" + $(".statusBar").attr("data-id"), {
+    type: "GET"
+  }).then(result => {
+    console.log(result);
+    $("#kidName").text(result.kid.name);
+  });
 });
