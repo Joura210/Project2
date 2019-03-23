@@ -69,6 +69,19 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
+  app.get("/api/kid/:id", (req, res) => {
+    let dataId = req.params.id;
+    db.Kid.findOne({
+      where: {
+        id: dataId
+      }
+    }).then(result => {
+      if (result.ParentId === req.user.id) {
+        res.json({ kid: result });
+      }
+    });
+  });
+
   app.get("/api/user_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
@@ -89,6 +102,33 @@ module.exports = function(app) {
           userName: req.user.userName,
           pin: req.user.pin,
           kidData: kidData
+        });
+      });
+    }
+  });
+
+  app.get("/api/user_data/parent", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({ login: false });
+    } else {
+      db.Kid.findAll({
+        where: {
+          ParentId: req.user.id
+        },
+        include: [
+          {
+            model: db.Task
+          }
+        ]
+      }).then(kids => {
+        res.json({
+          login: true,
+          id: req.user.id,
+          name: req.user.name,
+          userName: req.user.userName,
+          pin: req.user.pin,
+          kidData: kids
         });
       });
     }
@@ -181,7 +221,7 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.body.id
+            id: req.body.KidId
           }
         }
       ).then(function(result) {

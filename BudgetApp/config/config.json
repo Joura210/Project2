@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Notanother1",
+    "password": "surfboard",
     "database": "taskdb",
     "port": 3306,
     "host": "localhost",

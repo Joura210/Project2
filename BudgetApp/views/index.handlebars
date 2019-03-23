@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../assets/styles/myIndex.css">
+<script src="../assets/js/index.js"></script>
 
 <header>
   <div class="nav1">
@@ -13,30 +14,36 @@
 </header>
 
 <div class="container">
-  <h1>Welcome to the page, <span id="userName"></span></h1>
-
-  <div class="kidArea">
-
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Welcome <span id="userName">User Name</span></h1>
+    </div>
   </div>
-  {{!-- End Container --}}
+  <div class="row text-center main">
+    <div class="col-6">
+      <h2 class="subTitle">Parent Area</h2>
+      <h3 class="display"></h3>
+      <div class="numberInput">
+        <div class="number" data-number="1">1</div>
+        <div class="number" data-number="2">2</div>
+        <div class="number" data-number="3">3</div>
+        <div class="number" data-number="4">4</div>
+        <div class="number" data-number="5">5</div>
+        <div class="number" data-number="6">6</div>
+        <div class="number" data-number="7">7</div>
+        <div class="number" data-number="8">8</div>
+        <div class="number" data-number="9">9</div>
+        <div class="number" data-number="0">0</div>
+        <div class="number2" data-number=""> </div>
+        <div class="number2 back">D</div>
+      </div>
+      <button class="btn btn-info sendPin">Send</button>
+    </div>
+    <div class="col-6">
+      <h2 class="subTitle">Kid Area</h2>
+      <div class="row">
+        <div class="col-12 kidArea"></div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-<script>
-  var pin = "";
-  $(function() {
-    $.ajax("/api/user_data", {
-      type: "GET"
-    }).then(data => {
-      console.log(data);
-      console.log(data.name)
-      $("#userName").text(data.name);
-      pin = data.pin;
-      data.kidData.forEach(kid => {
-        let newKid = $("<a>").attr("class", "aBtn").text(kid.name).attr("data-id", kid.id).attr("href", "/kid/"+kid.id);
-        $(".kidArea").append(newKid)
-
-      })
-    })
-  })
-</script>
