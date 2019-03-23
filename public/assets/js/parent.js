@@ -32,7 +32,7 @@ $(function() {
       }
       let kidName = $("<h3>")
         .attr("class", "kidName third")
-        .html(kid.name + ": <br>" + rewWand);
+        .html(kid.name + "<br>" + rewWand);
 
       let startFlex = $("<div>").attr("class", "startFlex");
       startFlex.append(kidName, newEdit, newTask, newDel);
